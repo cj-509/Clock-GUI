@@ -1,88 +1,113 @@
-from tkinter.ttk import *
 from tkinter import *
 from asia import Asia
 from america import America
-import time
-
-
-
+import random, time
 
 root = Tk()
 
-root.title(" GUI Clock")
-root.geometry("600x250")
 
-#create a frame to display the time
-frame = LabelFrame(root, padx=75, pady=50)
-frame.grid(column=0, row=2, columnspan=5, rowspan=3, padx=10, pady=10)
+class App:
+    BACKGROUD_COLOR = ['#ff4000', '#ff8000', "#ffbf00", '#00ff40', '#00ffbf', '#8000ff', '#ffcccc']
 
+    def __init__(self, master) -> None:
+        self.title = master.title('Clock')
+        self.geometry = master.geometry('800x400')
 
-time_zones = {"Port-Au-Prince": America.Port_au_Prince(), 
-             "Toronto": America.Toronto(), 
-             "Vancouver": America.Vancouver(), 
-             "Winipeg": America.Winnipeg(), 
-             "Edmonton": America.Edmonton(), 
-             "Sao Paulo": America.Sao_Paulo(),
-             "Los Angeles": America.Los_Angeles(),
-             "New York": America.New_York(),
-             "HongKong": Asia.Hong_Kong(),
-             "Seoul": Asia.Seoul(),
-             "Tokyo":Asia.Tokyo(),
-             "Jerusalem": Asia.Jerusalem(),
-             "Shanghai": Asia.Shanghai()}
+        #Display Button
+        self.btn = Button(master, text="Display", command=self.display)
+        self.btn.grid(column=8, row=7)
+
+        self.clear_btn = Button(master, text="Clear", command=self.clear)
+        self.clear_btn.grid(column=9, row=7)
 
 
-#create display function
-def display():
-    NA_city = NortAmerica.get()
+        inner_frame = Frame(master, padx=75, pady=50)
+        inner_frame.grid(column=0, row=2, columnspan=4, rowspan=2, padx=10, pady=10)
 
-    # _Asia.get refers to StringVar()
-    Asia_city = _Asia.get()
+        #BACKGROUD_COLOR = ['#ff4000', '#ff8000', "#ffbf00", '#00ff40', '#00ffbf', '#8000ff', 'ff00ff', '#ffcccc']
 
-    for key in time_zones:
-        if key == NA_city or key == Asia_city:
-           global current_time
-           current_time = Label(frame, font=("calibri", 20, "bold"), background="purple")
-    current_time.config(text=str(time_zones[key]))
-    #current_time.after(1000, display)
-    current_time.pack()
-
-# clear funtion initialize
-def clear():
-    current_time.after(1000, current_time.destroy())
+        #time label insde the frame
+        self.lbl = Label(inner_frame, font=('Arial', 30, 'bold'),
+                    background=random.choice(App.BACKGROUD_COLOR), foreground='white')
+        self.lbl.pack(anchor='center')
 
 
+        self.NorthAmerica = StringVar()
+        #cities in North America dropdown list options       NA -> North America
+        self.NA_cities_options = ["Port-Au-Prince", "Toronto", "Vancouver", "Winnipeg", 
+                          "Edmonton", "Sao Paulo", "Los Angeles", "New York", "*"]
+        
+        #NA timezome menu
+        self.NorthAmerica_tz_menu = OptionMenu(master, self.NorthAmerica, *self.NA_cities_options)
+        Label(master, text="North America").grid(column=6, row=0)
+        self.NorthAmerica_tz_menu.grid(column=6, row=1)
+     
 
-NortAmerica = StringVar()
+        self.ASIA = StringVar()
+        #
+        self._Asia_cities_options = ["Honkong", "Seoul", "Tokyo", "Jerusalem", "Shanghai"]
+        self._Asia_tz_menu = OptionMenu(master, self.ASIA, *self._Asia_cities_options)
+        Label(master, text="Asia").grid(column=7, row=0)
+        self._Asia_tz_menu.grid(column=7, row=1)
+   
+        #user intput
+        #self.entry = Entry(master, borderwidth=3, width=25)
+        #self.entry.grid(row=0, column=0)
+    def display(self):
+        string = self.time_in_cities()
+        self.lbl.config(text=string)
+        self.lbl.after(1000, self.display)
+        self.lbl.pack()
+        #self.btn['state'] = DISABLED
+    
+    def clear(self):
+        self.lbl.after(1000, self.lbl.destroy())
+       # self.btn['state'] = NORMAL
 
-#cities in North America dropdown list options       NA -> North America
-NA_cities_options = ["Port-Au-Prince", "Toronto", "Vancouver", "Winipeg", 
-                          "Edmonton", "Sao Paulo", "Los Angeles", "New York"]
-#shows menu
-NortAmerica_tz_menu = OptionMenu(root, NortAmerica, *NA_cities_options)
-Label(root, text="North America").grid(column=7, row=0)
-NortAmerica_tz_menu.grid(column=7, row=1)
+    
+    def time_in_cities(self):
+        if self.NorthAmerica.get() == 'Port-Au-Prince':
+            return f'{America.Port_au_Prince()}'
+        
+        elif self.NorthAmerica.get() == 'Toronto':
+            return f'{America.Toronto()}'
+        
+        elif self.NorthAmerica.get() == 'Vancouver':
+            return f'{America.Vancouver()}'
+        
+        elif self.NorthAmerica.get() == 'Winnipeg':
+            return f'{America.Winnipeg()}'
+        
+        elif self.NorthAmerica.get() == 'Edmonton':
+            return f'{America.Edmonton()}'
+        
+        elif self.NorthAmerica.get() == 'Sao Paulo':
+            return f'{America.Sao_Paulo()}'
+        
+        elif self.NorthAmerica.get() == 'Los Angeles':
+            return f'{America.Los_Angeles()}'
+        elif self.NorthAmerica == '*':
+            return None
+        elif self.NorthAmerica.get() == 'New York':
+            return f'{America.New_York()}'
+        #END
 
-_Asia = StringVar()
-
-#citeis in asia dropdown list options 
-_Asia_cities_options = ["Honkong", "Seoul", "Tokyo", "Jerusalem", "Shanghai"]
-
-_Asia_tz_menu = OptionMenu(root, _Asia, *_Asia_cities_options)
-Label(root, text="Asia").grid(column=8, row=0)
-_Asia_tz_menu.grid(column=8, row=1)
-
-
-
-#clear btn to clear text on the screen
-clear_btn = Button(root, text="Clear", command=lambda: clear())
-clear_btn.grid(column=6, row=7)
-
-
-#display button the text inside the frame
-btn = Button(root, text="Display", command=lambda: display())
-btn.grid(column=7, row=7)
-
-
-
-root,mainloop()
+        elif self.ASIA.get() == 'Honkong':
+            return f'{Asia.Hong_Kong()}'
+        
+        elif self.ASIA.get() == 'Seoul':
+            return f'{Asia.Seoul()}'
+        
+        elif self.ASIA.get() == 'Tokyo':
+            return f'{Asia.Tokyo()}'
+        
+        elif self.ASIA.get() == 'Jerusalem':
+            return f'{Asia.Jerusalem()}'
+        
+        elif self.ASIA.get() == 'Shanghai':
+            return f'{Asia.Shanghai()}'
+  
+    def __str__(self) -> str:
+        return f'{self.time_in_cities()}'
+a = App(root)
+root.mainloop()

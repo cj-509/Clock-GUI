@@ -7,6 +7,6 @@ Graphical User Interface clock with timezones
 -Display timezones
 
 ## TODO
-- Update time every seconds
-- Fix clearing output delays
-- Add background and styling
+- Update time every seconds => Done
+- Fix clearing output delays => Done
+- Add background and styling => Inprogress
