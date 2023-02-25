@@ -42,6 +42,11 @@ class Europe:
         current_time = now.strftime("%I:%M:%S %p")
         return current_time
     
+    def Kiev():
+        now =datetime.datetime.now(tz=pytz.timezone('Europe/Kiev'))
+        current_time = now.strftime("%I:%M:%S %p")
+        return current_time
+    
     def Monaco():
         now =datetime.datetime.now(tz=pytz.timezone('Europe/Monaco'))
         current_time = now.strftime("%I:%M:%S %p")
@@ -53,3 +58,10 @@ class Europe:
         return current_time
     
 #["Madrid", "London", "Berlin", "Amsterdam", "Rome", "Paris", "Lisbon", "Moscow", "Kiev", "Monaco", "Bucharest"]
+
+
+
+myFile = "timezones.txt"
+with open(myFile, "w") as f:
+    for tz in pytz.all_timezones:
+        f.writelines(tz+"\n")

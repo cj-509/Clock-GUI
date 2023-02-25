@@ -16,8 +16,6 @@ class America:
         now =datetime.datetime.now(tz=pytz.timezone('America/Vancouver'))
         current_time = now.strftime("%I:%M:%S %p")
         return current_time
-    
-    #['Vancouver', 'Winnipeg', 'Edmonton', 'Sao_Paulo', 'Los_Angeles', 'New_York']
 
     def Winnipeg():
         now =datetime.datetime.now(tz=pytz.timezone('America/Winnipeg'))
@@ -41,6 +39,26 @@ class America:
     
     def New_York():
         now =datetime.datetime.now(tz=pytz.timezone('America/New_York'))
+        current_time = now.strftime("%I:%M:%S %p")
+        return current_time
+    
+    def Rio_Branco():
+        now =datetime.datetime.now(tz=pytz.timezone('America/Rio_Branco'))
+        current_time = now.strftime("%I:%M:%S %p")
+        return current_time
+
+    def Mexico_City():
+        now =datetime.datetime.now(tz=pytz.timezone('America/Mexico_City'))
+        current_time = now.strftime("%I:%M:%S %p")
+        return current_time
+    
+    def Lima():
+        now =datetime.datetime.now(tz=pytz.timezone('America/Lima'))
+        current_time = now.strftime("%I:%M:%S %p")
+        return current_time
+    
+    def Buenos_Aires():
+        now =datetime.datetime.now(tz=pytz.timezone('America/Buenos_Aires'))
         current_time = now.strftime("%I:%M:%S %p")
         return current_time
 

@@ -27,6 +27,32 @@ class Asia:
         current_time = now.strftime("%I:%M:%S %p")
         return current_time
     
+    def Singapore():
+        now =datetime.datetime.now(tz=pytz.timezone('Asia/Singapore'))
+        current_time = now.strftime("%I:%M:%S %p")
+        return current_time
+    
+    def Macao():
+        now =datetime.datetime.now(tz=pytz.timezone('Asia/Macao'))
+        current_time = now.strftime("%I:%M:%S %p")
+        return current_time
+    
+    def Vientiane():
+        now =datetime.datetime.now(tz=pytz.timezone('Asia/Vientiane'))
+        current_time = now.strftime("%I:%M:%S %p")
+        return current_time
+    
+    def Dili():
+        now =datetime.datetime.now(tz=pytz.timezone('Asia/Dili'))
+        current_time = now.strftime("%I:%M:%S %p")
+        return current_time
+    
+    def Istanbul():
+        now =datetime.datetime.now(tz=pytz.timezone('Asia/Istanbul'))
+        current_time = now.strftime("%I:%M:%S %p")
+        return current_time
+    
+    
 #["Honkong", "Seoul", "Tokyo", "Jerusalem", "Shanghai"]
 '''
 {"HongKong": Asia.Hong_Kong(),
